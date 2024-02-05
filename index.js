@@ -8,7 +8,7 @@ import compressFile from "./compressFile.js";
 import createFile from "./createFile.js";
 import decompressFile from "./decompressFile.js";
 import readFile from "./readFile.js";
-import renameFile from "./rename.js";
+import renameFile from "./renameFile.js";
 import showTable from "./showTable.js";
 
 const args = process.argv.slice(2);
