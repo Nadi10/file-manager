@@ -62,12 +62,11 @@ function goUp() {
   showCurrentDirectory();
 }
 
-async function copyFile(sourceDirectory, finalDirectory) {
+async function copyFile(sourceFileName, finalDirectory) {
   try {
-    const sourceFilePath = path.resolve(currentDirectory, sourceDirectory);
+    const sourceFilePath = path.resolve(currentDirectory, sourceFileName);
     const finalFilePath = path.join(
-      currentDirectory,
-      finalDirectory,
+      path.resolve(currentDirectory, finalDirectory),
       path.basename(sourceFilePath)
     );
     const sourceStream = fs.createReadStream(sourceFilePath);
@@ -81,20 +80,18 @@ async function copyFile(sourceDirectory, finalDirectory) {
   }
 }
 
-async function moveFile(sourceDirectory, finalDirectory) {
+async function moveFile(sourceFileName, finalDirectory) {
   try {
-    const sourceFilePath = path.resolve(currentDirectory, sourceDirectory);
+    const sourceFilePath = path.resolve(currentDirectory, sourceFileName);
     const finalFilePath = path.join(
-      currentDirectory,
-      finalDirectory,
+      path.resolve(currentDirectory, finalDirectory),
       path.basename(sourceFilePath)
     );
     const sourceStream = fs.createReadStream(sourceFilePath);
     const finalStream = fs.createWriteStream(finalFilePath);
-
     await pipeline(sourceStream, finalStream);
     await fs.promises.unlink(sourceFilePath);
-    console.log("File is copied!");
+    console.log("File is moved!");
   } catch (error) {
     console.error("Operation failed:", error.message);
   }
